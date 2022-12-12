@@ -6,4 +6,22 @@ body {
 
 .header {
     background-color: cornflowerblue;
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    min-width: 667px;
+}
+
+#headerTitle {
+    width: 100vw;
+    text-align: center;
+    font-size: 3rem;
+    position: absolute;
+}
+
+.bookCount {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    justify-items: end;
 }
