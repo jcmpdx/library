@@ -65,17 +65,41 @@ body {
 }
 
 .library > div {
-    background-color: bisque;
-    margin-top: 4vh;
+    margin-top: 8vh;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 22vh;
+    grid-template-columns: repeat(2, minmax(200px, 1fr));
+    grid-auto-rows: 38vh;
     gap: 54px;
-    justify-items: center;
 }
 
 .book {
     width: 22vw;
     padding: 20px;
     background-color: rgb(68, 185, 107);
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+}
+
+.buttonGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    margin-bottom: 3vh;
+}
+
+.buttonGroup > button {
+    background-color: rgb(192, 192, 192);
+    border: none;
+    width: 12vw;
+    height: 4vh;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+.buttonGroup > button:hover {
+    background-color: #fff;
 }
