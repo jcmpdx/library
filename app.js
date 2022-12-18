@@ -66,3 +66,4 @@ let createBook = (Book) => {
 // OK creates new Obj passing those input values to Book object
 // new Book object is stored in library array
 // HTML element id="shelf" for loop of array, creating a book for each item
+// need to build out the input form in JS when user clicks on addbook button
