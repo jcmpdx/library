@@ -84,14 +84,14 @@ body {
     font-size: 1.4rem;
 }
 
-.buttonGroup {
+.buttonContainer {
     display: flex;
     flex-direction: column;
     gap: 2vh;
     margin-bottom: 3vh;
 }
 
-.buttonGroup > button {
+.btn {
     background-color: rgb(192, 192, 192);
     border: none;
     width: 12vw;
@@ -100,6 +100,6 @@ body {
     cursor: pointer;
 }
 
-.buttonGroup > button:hover {
+.btn:hover {
     background-color: #fff;
 }
