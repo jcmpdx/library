@@ -29,6 +29,7 @@ function Book(title, author, pages, read) {
 }
 
 // create book html parts
+// when testing, first create new Book then createBook(newBook)
 let createBook = (Book) => {
     const bookContainer = document.createElement('div');
     const title = document.createElement('p');
@@ -66,4 +67,4 @@ let createBook = (Book) => {
 // OK creates new Obj passing those input values to Book object
 // new Book object is stored in library array
 // HTML element id="shelf" for loop of array, creating a book for each item
-// need to build out the input form in JS when user clicks on addbook button
+// need to build out the input form in JS when user clicks on addbook button. toggles display=none and display=block

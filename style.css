@@ -103,3 +103,15 @@ body {
 .btn:hover {
     background-color: #fff;
 }
+
+.popupContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.575);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
