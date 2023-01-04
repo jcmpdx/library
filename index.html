@@ -37,27 +37,9 @@
                     <button class="btn">Delete</button>
                 </div>
             </div>
-            <div class="book">
-                <p>test2</p>
-            </div>
-            <div class="book">
-                <p>test3</p>
-            </div>
-            <div class="book">
-                <p>test4</p>
-            </div>
-            <div class="book">
-                <p>test 5</p>
-            </div>
-            <div class="book">
-                <p>test 6</p>
-            </div>
-            <div class="book">
-                <p>test 7</p>
-            </div>
         </div>
     </div>
-    <div class="popupContainer">
+    <div id="popupContainer">
         <form action="post" class="newBookForm">
             <label for="title">Title</label>
             <input type="text" id="title" name="title">
@@ -65,7 +47,7 @@
             <input type="text" id="author" name="author">
             <label for="pages">Pages</label>
             <input type="number" id="pages" name="pages" min="1" max="10000">
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" id="submit">
         </form>
     </div>
 </body>

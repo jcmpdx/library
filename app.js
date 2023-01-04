@@ -1,6 +1,7 @@
 const addBook = document.getElementById('addBook');
 const bookSVG = document.getElementById('addBookSVG');
 const bookShelf = document.getElementById('shelf');
+const popupForm = document.getElementById('popupContainer');
 
 // mouseover effect on add book icon
 const mouseOverColor1 = 'tomato';
@@ -12,6 +13,9 @@ addBook.addEventListener('mouseover', () => {
 addBook.addEventListener('mouseleave', () => {
     bookSVG.style.color = '';
     addBook.style.backgroundColor = '';
+});
+addBook.addEventListener('click', () => {
+    popupForm.style.display = 'flex';
 });
 
 // object constuctor
@@ -61,9 +65,30 @@ let createBook = (Book) => {
     bookShelf.appendChild(bookContainer);
 }
 
-// addBook button opens a popup
+// popup form
+const submitButton = document.getElementById('submit');
+const titleInput = document.getElementById('title');
+const authorInput = document.getElementById('author');
+const pagesInput = document.getElementById('pages');
+let bookTitle, bookAuthor, bookPages;
+
+submitButton.addEventListener('click', submitClick, false);
+
+function submitClick(event) {
+    event.preventDefault();
+    bookTitle = titleInput.value;
+    bookAuthor = authorInput.value;
+    bookPages = pagesInput.value;
+    console.log(bookTitle, bookAuthor, bookPages);
+    popupForm.style.display = 'none';
+}
+// escape key logic to exit out of popup form goes here?
+
+
+// Notes:
+
 // popup contains inputs for (title, author, pages, toggle button for read T/F, OK and cancel)
-// Cancel deletes popup
+// Cancel and/or Escape key deletes popup
 // OK creates new Obj passing those input values to Book object
 // new Book object is stored in library array
 // HTML element id="shelf" for loop of array, creating a book for each item
