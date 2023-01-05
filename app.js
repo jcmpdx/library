@@ -1,7 +1,14 @@
 const addBook = document.getElementById('addBook');
 const bookSVG = document.getElementById('addBookSVG');
+
 const bookShelf = document.getElementById('shelf');
+
 const popupForm = document.getElementById('popupContainer');
+const submitButton = document.getElementById('submit');
+const titleInput = document.getElementById('title');
+const authorInput = document.getElementById('author');
+const pagesInput = document.getElementById('pages');
+let bookTitle, bookAuthor, bookPages;
 
 // mouseover effect on add book icon
 const mouseOverColor1 = 'tomato';
@@ -18,7 +25,29 @@ addBook.addEventListener('click', () => {
     popupForm.style.display = 'flex';
 });
 
-// object constuctor
+// Escape key to close popup
+document.addEventListener('keydown', function(e) {
+    if(e.keyCode == 27) {
+        popupForm.style.display = 'none';
+    }
+});
+
+// submit action on popup
+submitButton.addEventListener('click', submitClick, false);
+
+function submitClick(event) {
+    event.preventDefault();
+    bookTitle = titleInput.value;
+    bookAuthor = authorInput.value;
+    bookPages = pagesInput.value;
+    console.log(bookTitle, bookAuthor, bookPages);
+    let bookAdded = new Book(bookTitle, bookAuthor, bookPages);
+    createBook(bookAdded);
+    popupForm.style.display = 'none';
+}
+// escape key logic to exit out of popup form goes here? if popupForm.style.display === 'flex', escape key will set popupForm.style.display = 'none'
+
+// Book object constuctor
 function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
@@ -32,8 +61,7 @@ function Book(title, author, pages, read) {
     }
 }
 
-// create book html parts
-// when testing, first create new Book then createBook(newBook)
+// create & style book html parts
 let createBook = (Book) => {
     const bookContainer = document.createElement('div');
     const title = document.createElement('p');
@@ -64,26 +92,6 @@ let createBook = (Book) => {
     bookContainer.appendChild(buttonContainer);
     bookShelf.appendChild(bookContainer);
 }
-
-// popup form
-const submitButton = document.getElementById('submit');
-const titleInput = document.getElementById('title');
-const authorInput = document.getElementById('author');
-const pagesInput = document.getElementById('pages');
-let bookTitle, bookAuthor, bookPages;
-
-submitButton.addEventListener('click', submitClick, false);
-
-function submitClick(event) {
-    event.preventDefault();
-    bookTitle = titleInput.value;
-    bookAuthor = authorInput.value;
-    bookPages = pagesInput.value;
-    console.log(bookTitle, bookAuthor, bookPages);
-    popupForm.style.display = 'none';
-}
-// escape key logic to exit out of popup form goes here?
-
 
 // Notes:
 

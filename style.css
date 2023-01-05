@@ -111,7 +111,25 @@ body {
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.575);
+    font-size: 1.4rem;
     display: none;
     justify-content: center;
     align-items: center;
+}
+
+#popupContainer > form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: black;
+    padding: 36px;
+    border: 1px solid gainsboro;
+}
+
+#popupContainer > form > label {
+    margin-bottom: -8px;
+}
+
+#popupContainer > form > input {
+    height: 26px;
 }
