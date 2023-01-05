@@ -108,13 +108,14 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;
+    min-width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.575);
     font-size: 1.4rem;
     display: none;
     justify-content: center;
-    align-items: center;
+    align-items: start;
+    padding-top: 111px;
 }
 
 #popupContainer > form {

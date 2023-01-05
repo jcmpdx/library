@@ -22,6 +22,9 @@ addBook.addEventListener('mouseleave', () => {
     addBook.style.backgroundColor = '';
 });
 addBook.addEventListener('click', () => {
+    titleInput.value = '';
+    authorInput.value = '';
+    pagesInput.value = '';
     popupForm.style.display = 'flex';
 });
 
