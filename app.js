@@ -10,7 +10,7 @@ const authorInput = document.getElementById('author');
 const pagesInput = document.getElementById('pages');
 let bookTitle, bookAuthor, bookPages;
 
-// mouseover effect on add book icon
+// eventListeners on add book icon
 const mouseOverColor1 = 'tomato';
 const mouseOverColor2 = 'white';
 addBook.addEventListener('mouseover', () => {
@@ -45,10 +45,10 @@ function submitClick(event) {
     bookPages = pagesInput.value;
     console.log(bookTitle, bookAuthor, bookPages);
     let bookAdded = new Book(bookTitle, bookAuthor, bookPages);
-    createBook(bookAdded);
+    addBookToLibrary(bookAdded);
+    renderLibrary();
     popupForm.style.display = 'none';
 }
-// escape key logic to exit out of popup form goes here? if popupForm.style.display === 'flex', escape key will set popupForm.style.display = 'none'
 
 // Book object constuctor
 function Book(title, author, pages, read) {
@@ -62,6 +62,29 @@ function Book(title, author, pages, read) {
             return 'no'
         }
     }
+}
+
+// myLibrary array
+// note: need to associate your DOM elements with the actual book objects in some way. One easy solution is giving them a data-attribute that corresponds to the index of the library array.
+let myLibrary = [];
+const exampleBook = new Book('The Hobbit', 'J.R.R. Tolkien', 295, 'true');
+myLibrary.push(exampleBook);
+function addBookToLibrary(newBook) {
+    myLibrary.push(newBook);
+}
+
+// for loop on myLibrary array to generate books in library DOM elements
+function renderLibrary() {
+    purgeLibrary();
+    for (const book of myLibrary) {
+        createBook(book);
+    }
+}
+
+// purge library dom elements before render - only a work-around until i figure out how to only loop thru books in myLibrary and add only the ones not already rendered on page
+const shelf = document.getElementById('shelf');
+function purgeLibrary() {
+    while (shelf.firstChild) shelf.removeChild(shelf.firstChild);
 }
 
 // create & style book html parts
@@ -96,11 +119,11 @@ let createBook = (Book) => {
     bookShelf.appendChild(bookContainer);
 }
 
-// Notes:
+// initial render to show exampleBook
+window.onload(renderLibrary());
 
+// Notes:
 // popup contains inputs for (title, author, pages, toggle button for read T/F, OK and cancel)
 // Cancel and/or Escape key deletes popup
-// OK creates new Obj passing those input values to Book object
 // new Book object is stored in library array
 // HTML element id="shelf" for loop of array, creating a book for each item
-// need to build out the input form in JS when user clicks on addbook button. toggles display=none and display=block
