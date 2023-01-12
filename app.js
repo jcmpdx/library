@@ -64,11 +64,11 @@ function Book(title, author, pages, read) {
     }
 }
 
-// myLibrary array
-// note: need to associate your DOM elements with the actual book objects in some way. One easy solution is giving them a data-attribute that corresponds to the index of the library array.
+// myLibrary array to store books
 let myLibrary = [];
-const exampleBook = new Book('The Hobbit', 'J.R.R. Tolkien', 295, 'true');
-myLibrary.push(exampleBook);
+const exampleBook1 = new Book('The Hobbit', 'J.R.R. Tolkien', 295, 'true');
+const exampleBook2 = new Book('The Bible', 'St. James', 3391, 'true');
+myLibrary.push(exampleBook1, exampleBook2);
 function addBookToLibrary(newBook) {
     myLibrary.push(newBook);
 }
@@ -82,9 +82,8 @@ function renderLibrary() {
 }
 
 // purge library dom elements before render - only a work-around until i figure out how to only loop thru books in myLibrary and add only the ones not already rendered on page
-const shelf = document.getElementById('shelf');
 function purgeLibrary() {
-    while (shelf.firstChild) shelf.removeChild(shelf.firstChild);
+    while (bookShelf.firstChild) bookShelf.removeChild(bookShelf.firstChild);
 }
 
 // create & style book html parts
@@ -101,8 +100,6 @@ let createBook = (Book) => {
     buttonContainer.classList.add('buttonContainer');
     readButton.classList.add('btn');
     deleteButton.classList.add('btn');
-    // onclick needed for read toggle read/unread
-    // onclick needed for delete book from library array
 
     title.textContent = `${Book.title}`;
     author.textContent = `By: ${Book.author}`;
@@ -117,13 +114,20 @@ let createBook = (Book) => {
     buttonContainer.appendChild(deleteButton);
     bookContainer.appendChild(buttonContainer);
     bookShelf.appendChild(bookContainer);
+
+    // onclick needed for read toggle read/unread
+    // delete button removes removes book from myLibrary array
+    deleteButton.addEventListener('click', (e) => {
+        let nodes = Array.from(e.target.parentNode.parentNode.parentNode.childNodes);
+        index = nodes.indexOf(e.target.parentNode.parentNode)
+        myLibrary.splice(index, 1);
+        renderLibrary();
+    });
 }
 
 // initial render to show exampleBook
-window.onload(renderLibrary());
+renderLibrary();
 
 // Notes:
 // popup contains inputs for (title, author, pages, toggle button for read T/F, OK and cancel)
 // Cancel and/or Escape key deletes popup
-// new Book object is stored in library array
-// HTML element id="shelf" for loop of array, creating a book for each item
