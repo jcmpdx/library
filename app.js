@@ -73,7 +73,6 @@ function addBookToLibrary(newBook) {
     myLibrary.push(newBook);
 }
 
-// for loop on myLibrary array to generate books in library DOM elements
 function renderLibrary() {
     purgeLibrary();
     for (const book of myLibrary) {
@@ -81,12 +80,11 @@ function renderLibrary() {
     }
 }
 
-// purge library dom elements before render - only a work-around until i figure out how to only loop thru books in myLibrary and add only the ones not already rendered on page
 function purgeLibrary() {
     while (bookShelf.firstChild) bookShelf.removeChild(bookShelf.firstChild);
 }
 
-// create & style book html parts
+// create, style and functions for book DOM
 let createBook = (Book) => {
     const bookContainer = document.createElement('div');
     const title = document.createElement('p');
@@ -104,7 +102,6 @@ let createBook = (Book) => {
     title.textContent = `${Book.title}`;
     author.textContent = `By: ${Book.author}`;
     pages.textContent = `${Book.pages} pages`;
-    //add logic for read button or unread button
     deleteButton.textContent = 'Delete';
 
     bookContainer.appendChild(title);
@@ -116,18 +113,22 @@ let createBook = (Book) => {
     bookShelf.appendChild(bookContainer);
 
     // onclick needed for read toggle read/unread
+    
+
     // delete button removes removes book from myLibrary array
     deleteButton.addEventListener('click', (e) => {
         let nodes = Array.from(e.target.parentNode.parentNode.parentNode.childNodes);
         index = nodes.indexOf(e.target.parentNode.parentNode)
         myLibrary.splice(index, 1);
         renderLibrary();
+        console.log(`Deleted '${Book.title}'`);
     });
 }
 
-// initial render to show exampleBook
+// initial render to show exampleBooks
 renderLibrary();
 
-// Notes:
-// popup contains inputs for (title, author, pages, toggle button for read T/F, OK and cancel)
-// Cancel and/or Escape key deletes popup
+// to do:
+// Read button functionality on books
+// Book counter
+// Update overall design
