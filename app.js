@@ -8,7 +8,8 @@ const submitButton = document.getElementById('submit');
 const titleInput = document.getElementById('title');
 const authorInput = document.getElementById('author');
 const pagesInput = document.getElementById('pages');
-let bookTitle, bookAuthor, bookPages;
+const readCheckbox = document.getElementById('readcheckbox');
+let bookTitle, bookAuthor, bookPages, bookRead;
 
 // eventListeners on add book icon
 const mouseOverColor1 = 'tomato';
@@ -30,44 +31,48 @@ addBook.addEventListener('click', () => {
 
 // Escape key to close popup
 document.addEventListener('keydown', function(e) {
-    if(e.keyCode == 27) {
+    if (e.keyCode == 27) {
         popupForm.style.display = 'none';
     }
 });
 
+// validate required fields are not blank before submit
+function requiredInputs() {
+    if (titleInput.value == '' || authorInput.value == '' || pagesInput.value <= 0) {
+        return false
+    } else {
+        return true
+    }
+}
+
 // submit action on popup
 submitButton.addEventListener('click', submitClick, false);
-
 function submitClick(event) {
     event.preventDefault();
     bookTitle = titleInput.value;
     bookAuthor = authorInput.value;
     bookPages = pagesInput.value;
-    console.log(bookTitle, bookAuthor, bookPages);
-    let bookAdded = new Book(bookTitle, bookAuthor, bookPages);
-    addBookToLibrary(bookAdded);
-    renderLibrary();
-    popupForm.style.display = 'none';
-}
-
-// Book object constuctor
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = function() {
-        if (read) {
-            return 'yes'
-        } else {
-            return 'no'
-        }
+    if (readCheckbox.checked == true) {
+        bookRead = 'read';
+    } else {
+        bookRead = 'unread';
+    }
+    if (requiredInputs()) {
+        console.log(bookTitle, bookAuthor, bookPages, bookRead);
+        let bookAdded = new Book(bookTitle, bookAuthor, bookPages, bookRead);
+        addBookToLibrary(bookAdded);
+        renderLibrary();
+        popupForm.style.display = 'none';
+    } else {
+        // nice to have is to instead highlight blank input with red border and block submit button until all fields have values
+        alert('Need to fill out title, author, and pages.')
     }
 }
 
 // myLibrary array to store books
 let myLibrary = [];
-const exampleBook1 = new Book('The Hobbit', 'J.R.R. Tolkien', 295, 'true');
-const exampleBook2 = new Book('The Bible', 'St. James', 3391, 'true');
+const exampleBook1 = new Book('The Hobbit', 'J.R.R. Tolkien', 295, 'read');
+const exampleBook2 = new Book('The Bible', 'St. James', 3391, 'not read');
 myLibrary.push(exampleBook1, exampleBook2);
 function addBookToLibrary(newBook) {
     myLibrary.push(newBook);
@@ -82,6 +87,20 @@ function renderLibrary() {
 
 function purgeLibrary() {
     while (bookShelf.firstChild) bookShelf.removeChild(bookShelf.firstChild);
+}
+
+// Book object constuctor
+function Book(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = function() {
+        if (read == 'read') {
+            return true
+        } else {
+            return false
+        }
+    }
 }
 
 // create, style and functions for book DOM
@@ -113,7 +132,11 @@ let createBook = (Book) => {
     bookShelf.appendChild(bookContainer);
 
     // onclick needed for read toggle read/unread
-    
+    if (Book.read() == true) {
+        readButton.textContent = 'Read';
+    } else {
+        readButton.textContent = 'Unread';
+    }
 
     // delete button removes removes book from myLibrary array
     deleteButton.addEventListener('click', (e) => {
@@ -131,4 +154,5 @@ renderLibrary();
 // to do:
 // Read button functionality on books
 // Book counter
+// if title, author, or pages are blank, don't allow submit on popup
 // Update overall design

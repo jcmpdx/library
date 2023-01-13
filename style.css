@@ -134,3 +134,8 @@ body {
 #popupContainer > form > input {
     height: 26px;
 }
+
+input[type=checkbox] {
+    align-self: flex-start;
+    width: 24px;
+}
