@@ -76,7 +76,7 @@ function submitClick(event) {
 // myLibrary array to store books
 let myLibrary = [];
 const exampleBook1 = new Book('The Hobbit', 'J.R.R. Tolkien', 295, 'read');
-const exampleBook2 = new Book('The Bible', 'St. James', 3391, 'not read');
+const exampleBook2 = new Book('The Bible', 'St. James', 3391, 'unread');
 myLibrary.push(exampleBook1, exampleBook2);
 function addBookToLibrary(newBook) {
     myLibrary.push(newBook);
@@ -99,13 +99,7 @@ function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.read = function() {
-        if (read === 'read') {
-            return true
-        } else {
-            return false
-        }
-    }
+    this.read = read;
 }
 
 // create, style and functions for book DOM
@@ -136,14 +130,25 @@ let createBook = (Book) => {
     bookContainer.appendChild(buttonContainer);
     bookShelf.appendChild(bookContainer);
 
-    // onclick needed for read toggle read/unread
-    if (Book.read() == true) {
-        readButton.textContent = 'Read';
-    } else {
-        readButton.textContent = 'Unread';
+    // read/unread button toggle
+    function setReadBtnValue() {
+        if (Book.read === 'read') {
+            readButton.textContent = 'Read';
+        } else {
+            readButton.textContent = 'Unread';
+        }
     }
-
-    // delete button removes removes book from myLibrary array
+    readButton.addEventListener('click', () => {
+        if (Book.read === 'read') {
+            Book.read = 'unread';
+        } else {
+            Book.read = 'read';
+        }
+        setReadBtnValue();
+        updateCounter();
+    });
+    setReadBtnValue();
+    // delete button removes book from myLibrary array
     deleteButton.addEventListener('click', (e) => {
         let nodes = Array.from(e.target.parentNode.parentNode.parentNode.childNodes);
         index = nodes.indexOf(e.target.parentNode.parentNode)
@@ -156,9 +161,8 @@ let createBook = (Book) => {
 // book counter
 function readCount() {
     let t = 0;
-    let f = 0;
     for (const book of myLibrary) {
-        if (book.read()) {
+        if (book.read === 'read') {
             t += 1;
         }
     }
@@ -171,11 +175,9 @@ function updateCounter() {
     bookTotal.textContent = myLibrary.length;
 }
 
-
-// initial render to show exampleBooks
+// initial render
 renderLibrary();
 
 // to do:
-// Read button functionality on books
 // if title, author, or pages are blank, don't allow submit on popup
 // Update overall design
