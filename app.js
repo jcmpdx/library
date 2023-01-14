@@ -1,6 +1,10 @@
 const addBook = document.getElementById('addBook');
 const bookSVG = document.getElementById('addBookSVG');
 
+const bookReadCounter = document.getElementById('bookReadCount');
+const bookUnreadCounter = document.getElementById('bookUnreadCount');
+const bookTotal = document.getElementById('bookTotal');
+
 const bookShelf = document.getElementById('shelf');
 
 const popupForm = document.getElementById('popupContainer');
@@ -83,6 +87,7 @@ function renderLibrary() {
     for (const book of myLibrary) {
         createBook(book);
     }
+    updateCounter();
 }
 
 function purgeLibrary() {
@@ -95,7 +100,7 @@ function Book(title, author, pages, read) {
     this.author = author;
     this.pages = pages;
     this.read = function() {
-        if (read == 'read') {
+        if (read === 'read') {
             return true
         } else {
             return false
@@ -148,11 +153,29 @@ let createBook = (Book) => {
     });
 }
 
+// book counter
+function readCount() {
+    let t = 0;
+    let f = 0;
+    for (const book of myLibrary) {
+        if (book.read()) {
+            t += 1;
+        }
+    }
+    return t;
+}
+
+function updateCounter() {
+    bookReadCounter.textContent = readCount();
+    bookUnreadCounter.textContent = myLibrary.length - readCount();
+    bookTotal.textContent = myLibrary.length;
+}
+
+
 // initial render to show exampleBooks
 renderLibrary();
 
 // to do:
 // Read button functionality on books
-// Book counter
 // if title, author, or pages are blank, don't allow submit on popup
 // Update overall design
